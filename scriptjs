@@ -1,0 +1,33 @@
+function addImage() {
+    const imageInput = document.getElementById('imageInput');
+    const gallery = document.getElementById('gallery');
+
+    if (imageInput.files && imageInput.files[0]) {
+    
+        const file = imageInput.files[0];
+        const reader = new FileReader();  
+        
+        reader.onload = function(e) {
+            const imgDiv = document.createElement('div');
+            imgDiv.classList.add('image-item');
+
+            const img = document.createElement('img');
+            img.src = e.target.result;  
+
+            const removeBtn = document.createElement('button');
+            removeBtn.classList.add('remove-btn');
+            removeBtn.innerHTML = 'Remove';
+            removeBtn.onclick = function() {
+                imgDiv.remove();
+            };
+
+            imgDiv.appendChild(img);
+            imgDiv.appendChild(removeBtn);
+
+            gallery.appendChild(imgDiv);
+        };
+
+        reader.readAsDataURL(file);
+        imageInput.value = "";  
+    }
+}
